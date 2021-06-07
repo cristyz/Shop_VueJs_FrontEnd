@@ -5,7 +5,9 @@
         <h1 class="jumbotron-heading">My Shop</h1>
         <p class="lead text-muted">FullStack in VueJs</p>
         <p>
-          <a href="#" class="btn btn-warning my-2 text-white">Promotions <i class="far fa-star"></i></a>
+          <a href="#" class="btn btn-warning my-2 text-white"
+            >Promotions <i class="far fa-star"></i
+          ></a>
         </p>
       </div>
     </section>
@@ -26,9 +28,7 @@
                 <p class="card-text">
                   {{ i.name }}
                 </p>
-                <p class="card-text">
-                  R${{ i.price }}
-                </p>
+                <p v-money class="card-text">R${{ i.price.toFixed(2) }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button
@@ -53,13 +53,11 @@
         </div>
       </div>
     </div>
-
   </main>
 </template>
 
 <script>
 export default {
-
   data() {
     return {
       products: [],
@@ -67,18 +65,28 @@ export default {
   },
 
   mounted() {
-    fetch('http://192.168.1.8:8484/')
-      .then(e => e.json())
-      .then(e => this.products = e)
+    fetch("http://192.168.1.8:8484/")
+      .then((e) => e.json())
+      .then((e) => (this.products = e));
+
+    this.$store.state.carProducts = JSON.parse(localStorage.getItem('productsCar'))
   },
 
   methods: {
     increment(products) {
-      this.$store.commit('addProductCar', products)
-    }
-}
+      this.$store.commit("addProductCar", products);
+      localStorage.setItem('productsCar', JSON.stringify(this.$store.state.carProducts))
+    },
+  },
 
+  directives: {
+    money(el) {
+      console.log(el.innerText);
+    },
+  },
 };
+
+
 </script>
 
 <style>

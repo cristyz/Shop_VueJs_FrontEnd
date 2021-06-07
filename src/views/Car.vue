@@ -27,10 +27,14 @@
           &#10006;
         </button>
       </div>
-      <p style="font-size: 50px">R${{ totalPrice }}</p>
+      <p style="font-size: 50px">R${{ totalPrice.toFixed(2) }}</p>
       <div>
-        <button class="btn btn-primary text-white px-4 fs-2 me-4">Finish</button>
-        <button @click="showModal" class="btn btn-outline-danger">Cancel</button>
+        <button class="btn btn-primary text-white px-4 fs-2 me-4">
+          Finish
+        </button>
+        <button @click="showModal" class="btn btn-outline-danger">
+          Cancel
+        </button>
       </div>
     </div>
 
@@ -43,7 +47,7 @@
       <img :src="product.url" />
       <div class="description">
         <h1>{{ product.name }}</h1>
-        <h5>R${{ product.price }}</h5>
+        <h5>R${{ product.price.toFixed(2) }}</h5>
       </div>
       <p style="width: 200px">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis velit,
@@ -74,6 +78,7 @@ export default {
   methods: {
     removeProductCar(products) {
       this.$store.commit("removeProductCar", products);
+      localStorage.setItem('productsCar', JSON.stringify(this.$store.state.carProducts))
     },
     showModal() {
       this.modalVisible = !this.modalVisible;
@@ -88,6 +93,7 @@ export default {
       return countPrice;
     },
   },
+  
 };
 </script>
 
