@@ -5,7 +5,8 @@ const store = createStore({
   state() {
     return {
       carProducts: [],
-      allProducts: []
+      allProducts: [],
+      userSingIn: false
     }
   },
   mutations: {
@@ -18,6 +19,9 @@ const store = createStore({
     },
     addAllProducts(state, payload) {
       state.allProducts = payload
+    },
+    verifyYUser(state, payload) {
+      state.userSingIn = payload
     }
   }
 })

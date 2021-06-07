@@ -30,7 +30,6 @@ export default {
     this.product = this.$store.state.allProducts.filter(
       (e) => e.id == this.$route.params.id
     );
-    console.log(this.product[0].name);
   },
   methods: {
     increment(products) {

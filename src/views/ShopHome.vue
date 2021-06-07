@@ -2,6 +2,8 @@
   <main role="main" class="pt-4">
     <section class="jumbotron text-center">
       <div class="container">
+        <h1 v-if="$store.state.userSingIn">Welcome {{name}} in</h1>
+
         <h1 class="jumbotron-heading">My Shop</h1>
         <p class="lead text-muted">FullStack in VueJs</p>
         <p>
@@ -59,10 +61,12 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       products: [],
+      name: null
     };
   },
 
@@ -71,12 +75,23 @@ export default {
       .then((e) => e.json())
       .then((e) => (this.products = e))
       .then((e) => {
-        this.$store.commit('addAllProducts', e)
-      })
+        this.$store.commit("addAllProducts", e);
+      });
 
-    this.$store.state.carProducts = JSON.parse(
-      localStorage.getItem("productsCar")
-    );
+    
+
+    // Verificar Token de usuario
+      axios
+        .get("http://localhost:8484/user", {
+          headers: { token: localStorage.getItem("token") },
+        })
+        .then((e) => {
+          this.$store.commit("verifyYUser", true);
+          this.name = e.data.user.name
+        })
+        .catch(err => console.log(err))
+    
+    
   },
 
   methods: {

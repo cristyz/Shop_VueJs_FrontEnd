@@ -78,7 +78,10 @@ export default {
   methods: {
     removeProductCar(products) {
       this.$store.commit("removeProductCar", products);
-      localStorage.setItem('productsCar', JSON.stringify(this.$store.state.carProducts))
+      localStorage.setItem(
+        "productsCar",
+        JSON.stringify(this.$store.state.carProducts)
+      );
     },
     showModal() {
       this.modalVisible = !this.modalVisible;
@@ -93,7 +96,6 @@ export default {
       return countPrice;
     },
   },
-  
 };
 </script>
 
