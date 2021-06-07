@@ -4,7 +4,7 @@
     <router-link to="/">
       <img src="./assets/logo.png" />
     </router-link>
-    <router-link to="Car">{{$store.state.carProducts.length}} <i class="fas fa-shopping-cart"></i> </router-link>
+    <router-link to="/Car">{{$store.state.carProducts.length}} <i class="fas fa-shopping-cart"></i> </router-link>
   </nav>
 
 

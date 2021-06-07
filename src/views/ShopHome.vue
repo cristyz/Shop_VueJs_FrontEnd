@@ -28,14 +28,16 @@
                 <p class="card-text">
                   {{ i.name }}
                 </p>
-                <p v-money class="card-text">R${{ i.price.toFixed(2) }}</p>
+                <p class="card-text">R${{ i.price.toFixed(2) }}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button
                       type="button"
                       class="btn btn-sm btn-outline-secondary"
                     >
-                      View
+                      <router-link :to="{ path: `/productview/${i.id}` }">
+                        > View
+                      </router-link>
                     </button>
                     <button
                       type="button"
@@ -67,27 +69,38 @@ export default {
   mounted() {
     fetch("http://192.168.1.8:8484/")
       .then((e) => e.json())
-      .then((e) => (this.products = e));
+      .then((e) => (this.products = e))
+      .then((e) => {
+        this.$store.commit('addAllProducts', e)
+      })
 
-    this.$store.state.carProducts = JSON.parse(localStorage.getItem('productsCar'))
+    this.$store.state.carProducts = JSON.parse(
+      localStorage.getItem("productsCar")
+    );
   },
 
   methods: {
     increment(products) {
       this.$store.commit("addProductCar", products);
-      localStorage.setItem('productsCar', JSON.stringify(this.$store.state.carProducts))
+      localStorage.setItem(
+        "productsCar",
+        JSON.stringify(this.$store.state.carProducts)
+      );
     },
   },
 
-  directives: {
-    money(el) {
-      console.log(el.innerText);
-    },
-  },
+  // directives: {
+  //   money(el) {
+  //     console.log(el.innerText);
+  //   },
+  // },
 };
-
-
 </script>
 
 <style>
+.btn-group a {
+  /* color: transparent !important; */
+  color: black;
+  text-decoration: none;
+}
 </style>

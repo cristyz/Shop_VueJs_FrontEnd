@@ -4,16 +4,20 @@ import { createStore } from 'vuex'
 const store = createStore({
   state() {
     return {
-      carProducts: []
+      carProducts: [],
+      allProducts: []
     }
   },
   mutations: {
     addProductCar(state, payload) {
       state.carProducts.push(payload)
+      console.log(state.carProducts);
     },
     removeProductCar(state, payload) {
-      
       state.carProducts = state.carProducts.filter((e) => e.id !== payload.id)
+    },
+    addAllProducts(state, payload) {
+      state.allProducts = payload
     }
   }
 })
